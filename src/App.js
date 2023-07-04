@@ -6,21 +6,36 @@ import { useState } from 'react';
 function App() {
   const [name, setName] = useState('Hoa');
   const [address, setAddress] = useState('');
-  let a;
+  const [todo, setTodo] = useState([
+    {id: '1', value: 'homework'}
+  ]);
   const handleEventClick = (event) => {
-    setAddress(a)
+    if(!address){
+      alert('empty');
+      return;
+    }
+    let newTodo = { id: Math.random(), value: address}
+    setTodo([...todo, newTodo])
+    setAddress('')
   }
   const handleOnChange = (event) =>{
-    a = event.target.value;
+    setAddress(event.target.value);
     console.log(event.target.value)
   }
   return (
     
     <div className="App">
       <Nav></Nav>
-      <div>{name} - {address}</div>
-      <input type="text" value={a} onChange={(event) => handleOnChange(event)} />
+      <div>{name}</div>
+      <input type="text" value={address} onChange={(event) => handleOnChange(event)} />
       <button type="button" onClick={(event) => handleEventClick(event)}>Click me</button>
+      <div className='todo-container'>
+        {todo&&todo.length>0&&todo.map(todo=>{
+          return(
+            <li className='todo-child' key={todo.id}>{todo.value}</li>
+          )
+        })}
+      </div>
     </div>
   );
 }
