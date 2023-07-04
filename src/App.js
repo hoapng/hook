@@ -6,11 +6,12 @@ import { useState } from 'react';
 function App() {
   const [name, setName] = useState('Hoa');
   const [address, setAddress] = useState('');
+  let a;
   const handleEventClick = (event) => {
-    setName(address)
+    setAddress(a)
   }
   const handleOnChange = (event) =>{
-    setAddress(event.target.value);
+    a = event.target.value;
     console.log(event.target.value)
   }
   return (
@@ -18,7 +19,7 @@ function App() {
     <div className="App">
       <Nav></Nav>
       <div>{name} - {address}</div>
-      <input type="text" value={address} onChange={(event) => handleOnChange(event)} />
+      <input type="text" value={a} onChange={(event) => handleOnChange(event)} />
       <button type="button" onClick={(event) => handleEventClick(event)}>Click me</button>
     </div>
   );
