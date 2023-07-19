@@ -29,13 +29,18 @@ const App = () => { //class
     }
     //hook not merge state
     //...spread syntax array js
-    let newTodo = { id: 'abc', title: address, type: 'eric' }
+    let newTodo = { id: Math.floor((Math.random() * 100000) + 1), title: address, type: 'eric' }
     setTodos([...todos, newTodo])
     setAddress('')
   }
 
   const handleOnchangeInput = (event) => {
     setAddress(event.target.value)
+  }
+  const deleteDataToDo = (id) => {
+    let currentTodos = todos;
+    currentTodos = currentTodos.filter(item => item.id !== id)
+    setTodos(currentTodos)
   }
   //re-render
   //for for-each => map
@@ -48,10 +53,12 @@ const App = () => { //class
         <Todo
           todos={todos}
           title={'All todos'}
+          deleteDataToDo={deleteDataToDo}
         />
         <Todo
           todos={todos.filter(item => item.type === 'eric')}
           title={'Eric todos'}
+          deleteDataToDo={deleteDataToDo}
         />
         <input type="text" value={address} onChange={(event) => handleOnchangeInput(event)} />
         <button type="button" onClick={(event) => handleEventClick(event)}>Click me</button>
