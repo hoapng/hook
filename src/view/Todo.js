@@ -12,7 +12,7 @@ const Todo = (props) => {
                 {title}
             </div>
             {todos.map(todo => {
-                console.log('>>> check todo list: ', todo)
+                // console.log('>>> check todo list: ', todo)
                 return (
                     <div key={todo.id}>
                         <li className="todo-child"> {todo.title} &nbsp; 
