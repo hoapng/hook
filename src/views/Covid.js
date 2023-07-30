@@ -5,10 +5,11 @@ import moment from 'moment';
 const Covid = () => {
 
     const [dataCovid, setDataCovid] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
     // componentDidMount
     useEffect(async () => {
-        setTimeout(async () => {
+        try {
             let res = await axios.get('https://reqres.in/api/users?page=2')
             let data = res && res.data ? res.data : [];
             // if (data && data.length > 0) {
@@ -18,8 +19,13 @@ const Covid = () => {
             //     })
             // }
             setDataCovid(data.data);
-            setLoading(false);
-        }, 3000)
+            setIsLoading(false);
+            setIsError(false)
+        }
+        catch(e){
+            setIsError(true);
+            setIsLoading(false);
+        }
     }, []);
 
     return (
@@ -38,7 +44,7 @@ const Covid = () => {
                 </thead>
                 <tbody>
 
-                    {loading === false && dataCovid && dataCovid.length > 0 &&
+                    {isError === false && isLoading === false && dataCovid && dataCovid.length > 0 &&
                         dataCovid.map(item => {
                             return (
                                 <tr key={item.id}>
@@ -52,9 +58,15 @@ const Covid = () => {
                         })
                     }
 
-                    {loading === true
+                    {isLoading === true
                         && <tr >
                             <td colSpan='5' style={{ 'textAlign': 'center' }}>  Loading...</td>
+                        </tr>
+                    }
+
+                    {isError === true
+                        && <tr >
+                            <td colSpan='5' style={{ 'textAlign': 'center' }}>  Error...</td>
                         </tr>
                     }
 
