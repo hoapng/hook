@@ -1,32 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import moment from 'moment';
+import useFetch from "../customize/fetch";
 
 const Covid = () => {
 
-    const [dataCovid, setDataCovid] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
-    // componentDidMount
-    useEffect(async () => {
-        try {
-            let res = await axios.get('https://reqres.in/api/users?page=2')
-            let data = res && res.data ? res.data : [];
-            // if (data && data.length > 0) {
-            //     data.map(item => {
-            //         item.Date = moment(item.Date).format('DD/MM/YYYY');
-            //         return item;
-            //     })
-            // }
-            setDataCovid(data.data);
-            setIsLoading(false);
-            setIsError(false)
-        }
-        catch(e){
-            setIsError(true);
-            setIsLoading(false);
-        }
-    }, []);
+    const { data: dataCovid, isLoading, isError} = useFetch('https://reqres.in/api/users?page=2')
 
     return (
         <>
