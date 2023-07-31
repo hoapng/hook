@@ -4,6 +4,7 @@ import Nav from './view/Nav';
 import { useEffect, useState } from 'react';
 import Todo from './view/Todo';
 import Covid from './views/Covid';
+import { CountDown, NewCountDown } from './views/Countdown';
 
 
 // template + logic
@@ -53,11 +54,19 @@ const App = () => { //class
   }
   //re-render
   //for for-each => map
+
+  const onTimesup = () => {
+    alert('times up')
+  }
+
   return (
     <div className="App">
       <Nav />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <CountDown onTimesup={onTimesup} />
+        <span>---------------------</span>
+        <NewCountDown onTimesup={onTimesup} />
         <h1>Hello world with React and {name}!</h1>
         <Covid></Covid>
         {/* <Todo
